@@ -1,9 +1,8 @@
 class Solution:
-    # @param n, an integer
+    # @param s, a string
     # @return an integer
-    def hammingWeight(self, n):
-        ans = 0
-        while n:
-            ans += n & 1
-            n >>= 1
-        return ans
+    def titleToNumber(self, s):
+        n = 0
+        for i in range(0,len(s)):
+            n = n * 26 + ord(s[i]) - 64
+        return n

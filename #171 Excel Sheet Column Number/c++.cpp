@@ -1,11 +1,10 @@
 class Solution {
 public:
-    int hammingWeight(uint32_t n) {
-        int ans = 0;
-        while (n) {
-            ans += n & 0x1;
-            n >>= 1;
+    int titleToNumber(string s) {
+        int n = 0;
+        for (int i = 0; i < s.length(); i++) {
+            n = n * 26 + s[i] - 64;
         }
-        return ans;
+        return n;
     }
 };
