@@ -1,16 +1,12 @@
 public class Solution {
-    // you need to treat n as an unsigned value
-    public int hammingWeight(int n) {
-        int count = 0;
-        for(int i=1; i<33; i++){
-            if(getBit(n, i) == true){
-                count++;
+    public int numTrees(int n) {
+        int[] N = new int[n + 1];
+        N[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                N[i] += N[j] * N[i - j - 1];
             }
         }
-        return count;
-    }
-     
-    public boolean getBit(int n, int i){
-        return (n & (1 << i)) != 0;
+        return N[n];
     }
 }
