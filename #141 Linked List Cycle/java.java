@@ -1,16 +1,33 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
 public class Solution {
-    // you need to treat n as an unsigned value
-    public int hammingWeight(int n) {
-        int count = 0;
-        for(int i=1; i<33; i++){
-            if(getBit(n, i) == true){
-                count++;
-            }
+    public boolean hasCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+ 
+        if(head == null)
+            return false;
+ 
+        if(head.next == null)
+            return false;
+ 
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+ 
+            if(slow == fast)
+                return true;
         }
-        return count;
-    }
-     
-    public boolean getBit(int n, int i){
-        return (n & (1 << i)) != 0;
+ 
+        return false;
     }
 }

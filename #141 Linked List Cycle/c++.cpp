@@ -1,11 +1,22 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
 class Solution {
 public:
-    int hammingWeight(uint32_t n) {
-        int ans = 0;
-        while (n) {
-            ans += n & 0x1;
-            n >>= 1;
+    bool hasCycle(ListNode *head) {
+        if (!head){return false;}
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(slow->next && fast->next->next){
+            slow=slow->next;
+            fast=fast->next->next;
+            if (slow==fast){return true;}
         }
-        return ans;
+        return false;
     }
 };
