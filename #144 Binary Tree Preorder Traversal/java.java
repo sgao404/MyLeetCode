@@ -1,33 +1,26 @@
 /**
- * Definition for singly-linked list.
- * class ListNode {
+ * Definition for binary tree
+ * public class TreeNode {
  *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
-    public boolean hasCycle(ListNode head) {
-        ListNode fast = head;
-        ListNode slow = head;
- 
-        if(head == null)
-            return false;
- 
-        if(head.next == null)
-            return false;
- 
-        while(fast != null && fast.next != null){
-            slow = slow.next;
-            fast = fast.next.next;
- 
-            if(slow == fast)
-                return true;
+public class Solution {  // recursive version
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<Integer>();
+        
+        if (root != null) {
+            result.add(root.val);
+            List<Integer> left = preorderTraversal(root.left);
+            List<Integer> right = preorderTraversal(root.right);
+
+            result.addAll(left);
+            result.addAll(right);
+
         }
- 
-        return false;
+        return result;
     }
 }
+
