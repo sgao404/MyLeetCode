@@ -1,11 +1,39 @@
-class Solution {
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution { // Iteratively
 public:
-    int hammingWeight(uint32_t n) {
-        int ans = 0;
-        while (n) {
-            ans += n & 0x1;
-            n >>= 1;
+    ListNode* removeElements(ListNode* head, int val) {
+
+        ListNode *top = new ListNode(123123); 
+        top->next = head;
+        
+        ListNode *pre = top; 
+        ListNode *curr = head;
+        while (curr!=NULL) {
+            if(curr->val == val) {
+                pre->next = curr->next;
+                curr = curr->next;
+            } else {
+                pre=pre->next;
+                curr = curr->next;
+            }
         }
-        return ans;
+        return top->next;
+    }
+};
+
+class Solution {  // Recursively
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+
+        if (head == NULL) return NULL;
+        head->next = removeElements(head->next, val);
+        return head->val == val ? head->next : head;
     }
 };
