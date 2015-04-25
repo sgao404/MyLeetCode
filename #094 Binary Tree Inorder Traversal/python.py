@@ -8,7 +8,7 @@
 class Solution: # Recursively
     # @param root, a tree node
     # @return a list of integers
-    def preorderTraversal(self, root):
+    def inorderTraversal(self, root):
         if root == None: return [] 
         return self.preorderTraversal(root.left) + [root.val] +  self.preorderTraversal(root.right)
 
