@@ -1,24 +1,37 @@
-# Definition for singly-linked list.
-# class ListNode:
+# Definition for a  binary tree node
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
-#         self.next = None
+#         self.left = None
+#         self.right = None
 
-class Solution:
-    # @param {ListNode} head
-    # @param {integer} val
-    # @return {ListNode}
-    def removeElements(self, head, val):
-        top = ListNode(2312)
-        top.next = head
+class Solution: # Recursively
+    # @param root, a tree node
+    # @return a list of integers
+    def preorderTraversal(self, root):
+        if root == None: return [] 
+        return self.preorderTraversal(root.left) + [root.val] +  self.preorderTraversal(root.right)
+
+class Solution: # Iteratively
+    # @param root, a tree node
+    # @return a list of integers
+    def inorderTraversal(self, root):
+        result = []
         
-        pre = top
-        curr = head
-        while curr != None:
-            if curr.val == val:
-                pre.next = curr.next
-                curr = curr.next
+        if root == None:
+            return result
+        
+        nodeStack = []
+        p = root
+        
+        while len(nodeStack) != 0 or p != None:
+            if p != None:
+                nodeStack.append(p)
+                p = p.left
+
             else:
-                pre = pre.next
-                curr = curr.next
-        return top.next
+                p = nodeStack.pop()
+                result.append(p.val)
+                p = p.right
+ 
+        return result

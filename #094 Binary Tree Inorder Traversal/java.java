@@ -1,35 +1,32 @@
 /**
- * Definition for singly-linked list.
- * public class ListNode {
+ * Definition for binary tree
+ * public class TreeNode {
  *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution { // recursively （take from leetcode)
-    public ListNode removeElements(ListNode head, int val) {
-        if (head == null) return null;
-        head.next = removeElements(head.next, val);
-        return head.val == val ? head.next : head;
+public class Solution { // Iteratively
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<Integer>();
+        
+        if (root == null) {return result;}
+        
+        Stack<TreeNode> nodeStack = new Stack<TreeNode>();
+        TreeNode p = root;
+        
+        while (!nodeStack.empty() || p != null) {
+            if (p!=null) {
+                nodeStack.push(p);
+                p = p.left;
+            } else {
+                p = nodeStack.pop();
+                result.add(p.val);
+                p = p.right;
+                
+            }
+        }
+        return result;
     }
 }
-
-public class Solution { // iteratively
-    public ListNode removeElements(ListNode head, int val) {
-        ListNode top = new ListNode(1111); 
-        top.next = head;
-        
-        ListNode pre = top; 
-        ListNode curr = head;
-        while (curr!=null){
-            if(curr.val==val){
-                pre.next=curr.next;
-                curr=curr.next;
-            } else{
-            pre=pre.next;
-            curr=curr.next;
-            }
-        }   
-        return top.next;
-    }
-};

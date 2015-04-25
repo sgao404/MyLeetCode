@@ -1,40 +1,53 @@
 /**
- * Definition for singly-linked list.
- * struct ListNode {
+ * Definition for binary tree
+ * struct TreeNode {
  *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution { // Iteratively 
-
+class Solution { // Iteratively
 public:
-    ListNode* removeElements(ListNode* head, int val) {
-
-        ListNode *top = new ListNode(123123); 
-        top->next = head;
+    vector<int> inorderTraversal(TreeNode *root) {
+        vector<int> result;
         
-        ListNode *pre = top; 
-        ListNode *curr = head;
-        while (curr!=NULL) {
-            if(curr->val == val) {
-                pre->next = curr->next;
-                curr = curr->next;
+        if (!root) {
+            return result;
+        }
+        
+        std::stack<TreeNode*> nodeStack;
+        TreeNode *p = root;
+        
+        while (!nodeStack.empty() || p) {
+            if (p) {
+                nodeStack.push(p);
+                p = p->left;
             } else {
-                pre=pre->next;
-                curr = curr->next;
+                p = nodeStack.top();
+                nodeStack.pop();
+                result.push_back(p->val);
+                p = p->right;
+                
             }
         }
-        return top->next;
+        return result;
+           
     }
 };
 
-class Solution {  // Recursively （take from leetcode)
+class Solution { // Recursively
 public:
-    ListNode* removeElements(ListNode* head, int val) {
-
-        if (head == NULL) return NULL;
-        head->next = removeElements(head->next, val);
-        return head->val == val ? head->next : head;
+    vector<int> inorderTraversal(TreeNode *root) {
+        vector<int> result;    
+        helper(root,result);
+        return result;
+    }
+    void helper(TreeNode *root, vector<int> &result){
+        if (root!=NULL){
+            helper(root->left,result);
+            result.push_back(root->val);
+            helper(root->right,result);
+        }
     }
 };
