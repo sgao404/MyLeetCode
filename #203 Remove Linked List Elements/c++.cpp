@@ -6,7 +6,8 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution { // Iteratively
+class Solution { // Iteratively 
+
 public:
     ListNode* removeElements(ListNode* head, int val) {
 
@@ -28,7 +29,7 @@ public:
     }
 };
 
-class Solution {  // Recursively
+class Solution {  // Recursively （take from leetcode)
 public:
     ListNode* removeElements(ListNode* head, int val) {
 

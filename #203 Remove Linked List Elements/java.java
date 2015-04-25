@@ -6,7 +6,7 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-public class Solution { // recursively
+public class Solution { // recursively （take from leetcode)
     public ListNode removeElements(ListNode head, int val) {
         if (head == null) return null;
         head.next = removeElements(head.next, val);
