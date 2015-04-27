@@ -1,63 +1,37 @@
 /**
- * Definition for binary tree
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * Definition for binary tree with next pointer.
+ * struct TreeLinkNode {
+ *  int val;
+ *  TreeLinkNode *left, *right, *next;
+ *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
  * };
  */
-class Solution { // recursive version
+class Solution {
 public:
-    vector<int> preorderTraversal(TreeNode *root) {
-        vector<int> result;
-        if (root) {
-        result.push_back(root->val);
-        vector<int> left = preorderTraversal(root->left);
-        vector<int> right = preorderTraversal(root->right);
-        // result.insert(result.end(), left.begin(), left.end());  
-        for (int i = 0; i < left.size(); i++) {
-            result.push_back(left[i]);
+    void connect(TreeLinkNode *root) {
+        std::queue<TreeLinkNode*> que;
+        if (!root) {return;}
+        
+        que.push(root);
+        int i = 1;
+        int j = 1;
+        while (!que.empty()) {
+            TreeLinkNode* p =que.front();
+            que.pop();
+            if ((p->right!=NULL)&&(p->left!=NULL)){
+                que.push(p->left);
+                que.push(p->right);
+                
+            }
+            if (i==(pow(2,j)-1)){
+                p->next = NULL;
+                i++;
+                j++;
+            }else{
+                p->next = que.front();
+                i++;
+            }
         }
-        // result.insert(result.end(), right.begin(), right.end());  
-        for (int j = 0; j < right.size(); j++) {
-            result.push_back(right[j]);
-        }
-
-        }
-        return result;
-    }
-};
-
-class Solution { // iteratively
-public:
-    vector<int> preorderTraversal(TreeNode *root) {
-    	vector<int> result;
-
-    	if(root == NULL)
-    	{
-    		return result;
-    	}
-
-    	std::stack<TreeNode*> nodeStack;
-    	nodeStack.push(root);
-
-    	while(!nodeStack.empty())
-    	{
-    		TreeNode *node = nodeStack.top();
-    		result.push_back(node->val);
-    		nodeStack.pop();
-
-    		if(node->right)
-    		{
-    			nodeStack.push(node->right);
-    		}
-    		if(node->left)
-    		{
-    			nodeStack.push(node->left);
-    		}
-    	}
-
-    	return result;
+        
     }
 };

@@ -1,53 +1,35 @@
 /**
- * Definition for binary tree
- * public class TreeNode {
+ * Definition for binary tree with next pointer.
+ * public class TreeLinkNode {
  *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ *     TreeLinkNode left, right, next;
+ *     TreeLinkNode(int x) { val = x; }
  * }
  */
-public class Solution {  // recursive version
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<Integer>();
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        Queue<TreeLinkNode> que = new LinkedList<TreeLinkNode>();
         
-        if (root != null) {
-            result.add(root.val);
-            List<Integer> left = preorderTraversal(root.left);
-            List<Integer> right = preorderTraversal(root.right);
-
-            result.addAll(left);
-            result.addAll(right);
-
+        if (root == null) {return;}
+        
+        que.add(root);
+        int i = 1;
+        int j = 1;
+        while (que.peek() != null) {
+            TreeLinkNode p = root;
+            que.remove();
+            if (p.right !=null && p.left!=null) {
+                que.add(p.left);
+                que.add(p.right);
+            }
+            if (i==(Math.pow(2,j)-1)){
+                p.next = null;
+                i++;
+                j++;
+            }else{
+                p.next = que.element();
+                i++;
+            }
         }
-        return result;
-    }
-}
-
-public class Solution { // iteratively
-    public ArrayList<Integer> preorderTraversal(TreeNode root) {
-		ArrayList<Integer> result = new ArrayList<Integer>();
-
-		if (root == null) {
-			return result;
-		}
-
-		Stack<TreeNode> nodeStack = new Stack<TreeNode>();
-		nodeStack.push(root);
-
-		while (!nodeStack.empty()) { 
-			TreeNode node = nodeStack.pop();
-			result.add(node.val);
-
-			if (node.right != null) {
-				nodeStack.push(node.right);
-			}
-
-			if (node.left != null) {
-				nodeStack.push(node.left);
-			}
-		}
-
-		return result;
     }
 }
