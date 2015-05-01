@@ -1,40 +1,18 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution { // Iteratively 
-
+class Solution {
 public:
-    ListNode* removeElements(ListNode* head, int val) {
-
-        ListNode *top = new ListNode(123123); 
-        top->next = head;
-        
-        ListNode *pre = top; 
-        ListNode *curr = head;
-        while (curr!=NULL) {
-            if(curr->val == val) {
-                pre->next = curr->next;
-                curr = curr->next;
+    int searchInsert(vector<int>& nums, int target) {
+        int low = 0,high = nums.size()-1;
+        while (low <= high) {
+            int mid = low + (high-low)/2;
+            if (nums[mid] == target) {
+                return mid;
+            }else if (nums[mid]>target) {
+                high = mid - 1;
+                
             } else {
-                pre=pre->next;
-                curr = curr->next;
+                low = mid + 1;
             }
         }
-        return top->next;
-    }
-};
-
-class Solution {  // Recursively （take from leetcode)
-public:
-    ListNode* removeElements(ListNode* head, int val) {
-
-        if (head == NULL) return NULL;
-        head->next = removeElements(head->next, val);
-        return head->val == val ? head->next : head;
+        return low;
     }
 };

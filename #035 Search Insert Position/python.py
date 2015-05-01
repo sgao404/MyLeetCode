@@ -1,24 +1,16 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
 class Solution:
-    # @param {ListNode} head
-    # @param {integer} val
-    # @return {ListNode}
-    def removeElements(self, head, val):
-        top = ListNode(2312)
-        top.next = head
-        
-        pre = top
-        curr = head
-        while curr != None:
-            if curr.val == val:
-                pre.next = curr.next
-                curr = curr.next
+    # @param {integer[]} nums
+    # @param {integer} target
+    # @return {integer}
+    def searchInsert(self, nums, target):
+        low = 0
+        high = len(nums)-1
+        while low <= high:
+            mid = low + (high-low)/2
+            if nums[mid] == target:
+                return mid;
+            elif nums[mid] > target:
+                high = mid-1
             else:
-                pre = pre.next
-                curr = curr.next
-        return top.next
+                low = mid + 1
+        return low
