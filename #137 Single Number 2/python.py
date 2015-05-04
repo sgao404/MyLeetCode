@@ -1,16 +1,14 @@
 class Solution:
     # @param {integer[]} nums
-    # @param {integer} target
     # @return {integer}
-    def searchInsert(self, nums, target):
-        low = 0
-        high = len(nums)-1
-        while low <= high:
-            mid = low + (high-low)/2
-            if nums[mid] == target:
-                return mid;
-            elif nums[mid] > target:
-                high = mid-1
-            else:
-                low = mid + 1
-        return low
+    def singleNumber(self, nums):
+        t1 = 0
+        t2 = 0
+        t3 = 0
+        for a in nums:
+            t2 = t2 | (t1 & a);
+            t1 = t1 ^ a;
+            t3 = ~(t1 & t2);
+            t1 = t1 & t3;
+            t2 = t2 & t3;
+        return t1;

@@ -1,18 +1,19 @@
 class Solution {
 public:
-    int searchInsert(vector<int>& nums, int target) {
-        int low = 0,high = nums.size()-1;
-        while (low <= high) {
-            int mid = low + (high-low)/2;
-            if (nums[mid] == target) {
-                return mid;
-            }else if (nums[mid]>target) {
-                high = mid - 1;
-                
-            } else {
-                low = mid + 1;
-            }
+    int singleNumber(vector<int>& nums) {
+        int t1 = 0;
+        int t2 = 0;
+        int t3 = 0;
+        int n = nums.size();
+        for (int i = 0; i < n; i++){
+            t1 = t1 ^ nums[i];
+            t2 = t2 | ((t1^nums[i]) & nums[i]);
+            t3 = ~(t1 & t2);
+            t1 = t1 & t3;
+            t2 = t2 & t3;
         }
-        return low;
+         
+        return t1;
     }
+         
 };
