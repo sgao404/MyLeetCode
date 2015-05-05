@@ -1,16 +1,11 @@
 public class Solution {
-    public int searchInsert(int[] nums, int target) {
-        int low = 0, high = nums.length-1;
-        while (low <= high) {
-            int mid = low + (high - low)/2;
-            if (nums[mid] == target) {
-                return mid;
-            }else if (nums[mid] > target) {
-                high = mid - 1;
-            }else {
-                low = mid + 1;
-            }
+    public int maxSubArray(int[] nums) {
+        int newsum=nums[0];
+        int res=nums[0];
+        for(int i=1;i<nums.length;i++){
+            newsum = Math.max(newsum+nums[i],nums[i]);
+            res = Math.max(res, newsum);
         }
-        return low;
+        return res;
     }
 }

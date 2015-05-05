@@ -1,18 +1,13 @@
 class Solution {
 public:
-    int searchInsert(vector<int>& nums, int target) {
-        int low = 0,high = nums.size()-1;
-        while (low <= high) {
-            int mid = low + (high-low)/2;
-            if (nums[mid] == target) {
-                return mid;
-            }else if (nums[mid]>target) {
-                high = mid - 1;
-                
-            } else {
-                low = mid + 1;
-            }
+    int maxSubArray(vector<int>& nums) {
+        int newsum=nums[0];
+        int res=nums[0];
+        for(int i=1;i<nums.size();i++){
+            newsum = std::max(newsum+nums[i],nums[i]);
+            res = std::max(res, newsum);
         }
-        return low;
+        return res;
+        
     }
 };

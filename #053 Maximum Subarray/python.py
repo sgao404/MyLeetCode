@@ -1,16 +1,14 @@
 class Solution:
     # @param {integer[]} nums
-    # @param {integer} target
     # @return {integer}
-    def searchInsert(self, nums, target):
-        low = 0
-        high = len(nums)-1
-        while low <= high:
-            mid = low + (high-low)/2
-            if nums[mid] == target:
-                return mid;
-            elif nums[mid] > target:
-                high = mid-1
-            else:
-                low = mid + 1
-        return low
+    def maxSubArray(self, nums):
+        res = nums[0]
+        newsum = nums[0]
+        
+        for i in range(1,len(nums)):
+            newsum = max(newsum+nums[i],nums[i])
+            res = max(res,newsum)
+        
+        return res
+        
+       
