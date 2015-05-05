@@ -1,14 +1,16 @@
-class Solution:
+class Solution: # use sort
     # @param {integer[]} nums
     # @return {integer}
-    def singleNumber(self, nums):
-        t1 = 0
-        t2 = 0
-        t3 = 0
-        for a in nums:
-            t2 = t2 | (t1 & a);
-            t1 = t1 ^ a;
-            t3 = ~(t1 & t2);
-            t1 = t1 & t3;
-            t2 = t2 & t3;
-        return t1;
+    def majorityElement(self, nums):
+        nums.sort()
+        return nums[len(nums)/2]
+
+class Solution: # use dictionary
+    # @param {integer[]} nums
+    # @return {integer}
+    def majorityElement(self, nums):
+        dict = {}
+        for n in nums:
+            dict[n] = dict.get(n,0) +1
+            if dict[n] > len(nums)/2:
+                return n
