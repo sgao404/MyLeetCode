@@ -1,8 +1,21 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
 class Solution:
-    # @param A, a list of integer
-    # @return an integer
-    def singleNumber(self, A):
-        res = 0
-        for a in A:
-            res = res ^ a
-        return res
+    # @param {ListNode} head
+    # @return {ListNode}
+    def reverseList(self, head):
+        
+        curr = head
+        prev = None
+        
+        while curr != None:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        head = prev
+        return head
