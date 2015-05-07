@@ -6,7 +6,7 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-public class Solution {
+public class Solution { // Iteratively
     public ListNode reverseList(ListNode head) {                                                                                                    if (null == head) {return null;}
         
         ListNode curr = head;
@@ -21,6 +21,23 @@ public class Solution {
             
         head = prev;
         return head;                                                                                                                        
+        
+    }
+}
+
+public class Solution { // recursively
+    public ListNode reverseList(ListNode head) {                                                                                                    if (head == null)
+		if (head == null)	
+			return null;
+ 
+		if (head.next == null)
+			return head;
+ 
+		ListNode newHead = reverseList(head.next);
+		head.next.next = head;
+		head.next = null;
+		
+		return newHead;                                                                                                                        
         
     }
 }

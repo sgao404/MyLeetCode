@@ -8,7 +8,7 @@
  */
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
+    ListNode* reverseList(ListNode* head) {  // iteratively
         if (!head) {return NULL;}
         
         ListNode* curr = head;
@@ -23,5 +23,20 @@ public:
             
         head = prev;
         return head;
+    }
+};
+
+class Solution { // recursively
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (!head)	return NULL;
+ 
+		if (!head->next) return head;
+ 
+		ListNode* newHead = reverseList(head->next);
+		head->next->next = head;
+		head->next = NULL;
+		
+		return newHead; 
     }
 };
