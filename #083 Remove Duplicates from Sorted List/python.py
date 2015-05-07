@@ -1,14 +1,20 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
 class Solution:
-    # @param {integer[]} nums
-    # @return {integer}
-    def maxSubArray(self, nums):
-        res = nums[0]
-        newsum = nums[0]
+    # @param {ListNode} head
+    # @return {ListNode}
+    def deleteDuplicates(self, head):
+        if head == None or head.next == None:
+            return head
         
-        for i in range(1,len(nums)):
-            newsum = max(newsum+nums[i],nums[i])
-            res = max(res,newsum)
-        
-        return res
-        
-       
+        curr = head
+        while curr!=None and curr.next != None:
+            if curr.next.val == curr.val:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
+        return head

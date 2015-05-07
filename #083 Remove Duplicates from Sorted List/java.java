@@ -1,11 +1,23 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
 public class Solution {
-    public int maxSubArray(int[] nums) {
-        int newsum=nums[0];
-        int res=nums[0];
-        for(int i=1;i<nums.length;i++){
-            newsum = Math.max(newsum+nums[i],nums[i]);
-            res = Math.max(res, newsum);
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) return head;
+        
+        ListNode curr = head;
+        while (curr != null && curr.next != null) {
+            if (curr.next.val == curr.val) {
+                curr.next = curr.next.next;
+            } else {
+                curr = curr.next;
+            }
         }
-        return res;
+        return head;
     }
 }

@@ -1,13 +1,25 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) {
-        int newsum=nums[0];
-        int res=nums[0];
-        for(int i=1;i<nums.size();i++){
-            newsum = std::max(newsum+nums[i],nums[i]);
-            res = std::max(res, newsum);
-        }
-        return res;
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (!head || !head->next) return head;
         
+        ListNode* curr = head;
+        while (curr && curr->next) {
+            if (curr->next->val == curr->val) {
+                curr->next = curr->next->next;
+            }
+            else {
+                curr = curr->next;
+            }
+        }
+        return head;
     }
 };
