@@ -1,23 +1,12 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
 public class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
-        if (head == null || head.next == null) return head;
-        
-        ListNode curr = head;
-        while (curr != null && curr.next != null) {
-            if (curr.next.val == curr.val) {
-                curr.next = curr.next.next;
-            } else {
-                curr = curr.next;
-            }
+    public int climbStairs(int n) {
+        if (n<=2) {return n;}
+        int s1 = 1;
+        int s2 = 2;
+        for (int i = 3;i <=n;i++) {
+            s2 = s1 + s2;
+            s1 = s2 - s1;
         }
-        return head;
+        return s2;
     }
 }
