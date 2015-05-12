@@ -1,16 +1,23 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
     # @param {integer[]} nums
-    # @param {integer} target
-    # @return {integer}
-    def searchInsert(self, nums, target):
-        low = 0
-        high = len(nums)-1
-        while low <= high:
-            mid = low + (high-low)/2
-            if nums[mid] == target:
-                return mid;
-            elif nums[mid] > target:
-                high = mid-1
-            else:
-                low = mid + 1
-        return low
+    # @return {TreeNode}
+    def sortedArrayToBST(self, nums):
+        if len(nums) == 0:
+            return None
+        return self.helper(nums,0,len(nums)-1)
+    
+    def helper(self,num,start,end):
+        if start == end:
+            return TreeNode(num[start])
+        mid = (start+end)/2
+        node = TreeNode(num[mid])
+        node.left = self.helper(num,start,mid-1)
+        node.right = self.helper(num,mid+1,end)
+        return node
