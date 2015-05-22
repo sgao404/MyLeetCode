@@ -1,32 +1,19 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
 public class Solution {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode t1 = l1;
-        ListNode t2 = l2;
-        
-        ListNode head = new ListNode(0);
-        ListNode n = head;
-        
-        while (t1!=null && t2!=null) {
-            if (t1.val <= t2.val) {
-                n.next = t1;
-                t1 = t1.next;
-            } else {
-                n.next = t2;
-                t2 = t2.next;
-            }
-            n = n.next;
+    public int uniquePaths(int m, int n) {
+        if ( m == 1 || n == 1 ) {return 1;}
+        int[][] a = new int[m][n];
+        a[0][0] = 1;
+        for (int i=0;i<m;i++){
+            a[i][0] = 1;
         }
-        if (t1!=null) {n.next = t1;}
-        if (t2!=null) {n.next = t2;}
-        
-        return head.next;
+        for (int i=0;i<n;i++){
+            a[0][i] = 1;
+        }
+        for (int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                a[i][j] = a[i][j-1] + a[i-1][j];
+            }
+        }   
+        return a[m-1][n-1];
     }
 }

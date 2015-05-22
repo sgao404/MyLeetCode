@@ -1,33 +1,19 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
 class Solution:
-    # @param {ListNode} l1
-    # @param {ListNode} l2
-    # @return {ListNode}
-    def mergeTwoLists(self, l1, l2):
-        t1 = l1
-        t2 = l2
+    # @param {integer} m
+    # @param {integer} n
+    # @return {integer}
+    def uniquePaths(self, m, n):
+        if m == 1 or n == 1:
+            return 1
+        a = [[0 for x in range(n)] for x in range(m)] 
+        a[0][0] = 1
+        for i in range(m):
+            a[i][0] = 1
+        for i in range(n):
+            a[0][i] = 1
         
-        head = ListNode(0)
-        n = head
+        for i in range(1,m):
+            for j in range(1,n):
+                a[i][j] = a[i][j-1] + a[i-1][j]
         
-        while (t1!=None && t2!=None):
-            if t1.val <= t2.val:
-                n.next = t1
-                t1 = t1.next
-            else:
-                n.next = t2
-                t2 = t2.next
-            
-            n = n.next;
-        
-        if (t1!=None): 
-            n.next = t1
-        if (t2!=None): 
-            n.next = t2
-        
-        return head.next;
+        return a[m-1][n-1]
