@@ -1,19 +1,24 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
 class Solution:
-    # @param {integer} m
-    # @param {integer} n
-    # @return {integer}
-    def uniquePaths(self, m, n):
-        if m == 1 or n == 1:
-            return 1
-        a = [[0 for x in range(n)] for x in range(m)] 
-        a[0][0] = 1
-        for i in range(m):
-            a[i][0] = 1
-        for i in range(n):
-            a[0][i] = 1
+    # @param {ListNode} head
+    # @return {ListNode}
+    def swapPairs(self, head):
+        newHead = ListNode(0)
+        newHead.next = head
+        n1 = newHead
+        n2=head
+    
+        while(n2!=None and n2.next!=None):
+            temp = n2.next.next
+            n2.next.next=n1.next
+            n1.next=n2.next
+            n2.next=temp
+            n1=n2
+            n2=n1.next
         
-        for i in range(1,m):
-            for j in range(1,n):
-                a[i][j] = a[i][j-1] + a[i-1][j]
-        
-        return a[m-1][n-1]
+        return newHead.next
