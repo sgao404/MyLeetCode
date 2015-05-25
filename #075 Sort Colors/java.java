@@ -1,26 +1,35 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
 public class Solution {
-    public ListNode swapPairs(ListNode head) {
-        ListNode newHead = new ListNode(0);
-        newHead.next = head;
-        ListNode n1 = newHead, n2=head;
-        
-        while(n2!=null && n2.next!=null){
-            ListNode temp = n2.next.next;
-            n2.next.next=n1.next;
-            n1.next=n2.next;
-            n2.next=temp;
-            n1=n2;
-            n2=n1.next;
+    public void sortColors(int[] nums) {
+        int r = 0, w = 0, b = 0;
+    
+        for (int i = 0; i < nums.length; i++) {
+            switch(nums[i]) {
+                case 0:
+                r++;
+                break;
+                
+                case 1:
+                w++;
+                break;
+                
+                case 2:
+                b++;
+                break;
+            }
         }
         
-        return newHead.next;
+        for (int i =0;i<nums.length;i++) {
+            if (r >0) {
+                nums[i]=0;
+                r--;
+                continue;
+            }
+            if (w>0) {
+                nums[i]=1;
+                w--;
+                continue;
+            }
+            nums[i]=2;
+        }
     }
 }
