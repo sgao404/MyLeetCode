@@ -1,27 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
-    # @param {integer[][]} grid
-    # @return {integer}
-    def minPathSum(self, grid):
-        if grid == None:
+    # @param {TreeNode} root
+    # @return {boolean}
+    def isBalanced(self, root):
+        if root == None:
+            return True
+        if self.getHeight(root) == -1:
+            return False
+        return True
+        
+    def getHeight(self, node):
+        if node == None:
             return 0
-        row = len(grid)
-        col = len(grid[0])
+        left = self.getHeight(node.left)
+        right = self.getHeight(node.right)
         
-        count = [[0 for x in range(col)] for x in range(row)]
-        
-        # first col
-        for i in range(1,col):
-            count[0][i] = count[0][i-1]+grid[0][i]
-        
-        # first row
-        for j in range(1,row):
-            count[j][0] = count[j-1][0] + grid[j][0]
-        
-        for i in range(1,row):
-            for j in range(1,col):
-                if count[i-1][j] > count[i][j-1]:
-                    count[i][j] = count[i][j-1] + grid[i][j]
-                else:
-                    count[i][j]=count[i-1][j]+grid[i][j]
-                
-        return count[row-1][col-1];
+        if left == -1 or right == -1:
+            return -1
+        if abs(left-right) > 1:
+            return -1
+        return max(left,right) + 1

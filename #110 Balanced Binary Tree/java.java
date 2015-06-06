@@ -1,30 +1,31 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 public class Solution {
-    public int minPathSum(int[][] grid) {
-        if (grid == null) {return 0;}
-        int row = grid.length;
-        int col = grid[0].length;
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) return true;
+ 
+        if (getHeight(root) == -1) return false;
+ 
+        return true;
+    }
+ 
+    public int getHeight(TreeNode root) {
+        if (root == null) return 0;
+ 
+        int left = getHeight(root.left);
+        int right = getHeight(root.right);
+ 
+        if (left == -1 || right == -1) return -1;
+ 
+        if (Math.abs(left - right) > 1) return -1;
         
-        int [][] count = new int[row][col];
-        count[0][0] = grid[0][0];  
-        
-        // first col
-        for (int i = 1;i<col;i++) {
-            count[0][i] = count[0][i-1]+grid[0][i];
-        }
-        // first row
-        for (int j = 1; j<row;j++) {
-            count[j][0] = count[j-1][0] + grid[j][0];
-        }
-        
-        for (int i = 1;i<row;i++) {
-            for (int j =1;j<col;j++){
-                if (count[i-1][j] > count[i][j-1]) {
-                    count[i][j] = count[i][j-1] + grid[i][j];
-                }else {
-                    count[i][j]=count[i-1][j]+grid[i][j];
-                }
-            }
-        }
-        return count[row-1][col-1];
+        return Math.max(left, right) + 1;
     }
 }
