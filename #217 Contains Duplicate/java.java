@@ -1,17 +1,15 @@
 public class Solution {
-    public int maxArea(int[] height) {
-        if (height == null || height.length < 2) return 0;
+    public boolean containsDuplicate(int[] nums) {
+        if(nums==null || nums.length==0) return false;
+ 
+        HashSet<Integer> set = new HashSet<Integer>();
         
-        int max = 0;
-        int left = 0;
-        int right = height.length -1 ;
-        
-        while (left < right) {
-            max = Math.max(max,(right-left) * Math.min(height[left],height[right]));
-            if (height[left] < height[right]) left++;
-            else right--;
+        for(int i: nums){
+            if(!set.add(i)){
+                return true;
+            }
         }
-        
-        return max;
+ 
+        return false;
     }
 }
