@@ -1,15 +1,21 @@
-class Solution {
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution { // recursively 
 public:
-    bool containsDuplicate(vector<int>& nums) {
-        if(nums==NULL || nums.size()==0) return false;
-
-        unordered_set<int> set;
-        for (int i = 0; i < nums.size(); i++) {
-            if (set.find(nums[i]) != set.end()) {
-                return true;
-            }
-            set.insert(nums[i]);
+    TreeNode* invertTree(TreeNode* root) {
+        if (root) {
+        invertTree(root->left);
+        invertTree(root->right);
+        std::swap(root->left, root->right);
         }
-        return false;
+        return root;
+        
     }
 };
