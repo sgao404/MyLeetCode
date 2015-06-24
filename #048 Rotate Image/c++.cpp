@@ -1,40 +1,23 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-class Solution { // recursive
+class Solution {
 public:
-    TreeNode* invertTree(TreeNode* root) {
-        if (root) {
-        invertTree(root->left);
-        invertTree(root->right);
-        std::swap(root->left, root->right);
-        }
-        return root;
-        
-    }
-};
-
-class Solution {  // non-recursive
-public:
-    TreeNode* invertTree(TreeNode* root) {
-        std::stack<TreeNode*> stack;
-        stack.push(root);
-        
-        while(!stack.empty()) {
-            TreeNode* temp = stack.top();
-            stack.pop();
-            if (temp) {
-                stack.push(temp->left);
-                stack.push(temp->right);
-                std:swap(temp->left,temp->right);
+    void rotate(vector<vector<int> > &matrix) {
+        int n = matrix.size();
+        for (int layer = 0; layer < n/2; layer++){
+            int first = layer;
+            int last  = n-1-layer; 
+            for (int i=first;i<last;i++){
+                int offset = i-first;
+                int top = matrix[first][i];
+                //lower-left->upper-right           
+                matrix[first][i]=matrix[last-offset][first];
+                //lower-left->upper-left
+                matrix[last-offset][first] = matrix[last][last-offset];
+                //upper-right->lower-right
+                matrix[last][last-offset] = matrix[i][last];
+                //upper-left->upper-right
+                matrix[i][last] = top;
             }
         }
-        return root;
+         
     }
 };

@@ -1,53 +1,21 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-public class Solution { // recursive
-    public TreeNode invertTree(TreeNode root) {
-        if (root != null) {
-        invertTree(root.left);
-        invertTree(root.right);
-        swap(root);
-        }
-        return root;
-
-    }
-    
-    public void swap(TreeNode root) {
-        TreeNode temp = new TreeNode(1);
-        temp = root.left;
-        root.left = root.right;
-        root.right = temp;
-    }
-}
-
-public class Solution { // non-recursive
-    public TreeNode invertTree(TreeNode root) {
-        stack<TreeNode> stack = new stack<TreeNode>();
-        stack.push(root);
-        
-        while(!stack.empty()) {
-            TreeNode temp = stack.front();
-            stack.pop();
-            if (temp) {
-                stack.push(temp.left);
-                stack.push(temp.right);
-                swap(temp.left,temp.right);
+public class Solution {
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        for (int layer = 0; layer < n/2; layer++){
+            int first = layer;
+            int last  = n-1-layer; 
+            for (int i=first;i<last;i++){
+                int offset = i-first;
+                int top = matrix[first][i];
+                //lower-left->upper-right           
+                matrix[first][i]=matrix[last-offset][first];
+                //lower-left->upper-left
+                matrix[last-offset][first] = matrix[last][last-offset];
+                //upper-right->lower-right
+                matrix[last][last-offset] = matrix[i][last];
+                //upper-left->upper-right
+                matrix[i][last] = top;
             }
         }
-        return root;
-
-    }
-    
-    public void swap(TreeNode root) {
-        TreeNode temp = new TreeNode(1);
-        temp = root.left;
-        root.left = root.right;
-        root.right = temp;
     }
 }
